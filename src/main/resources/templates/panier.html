@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/HomeLayout}">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<div layout:fragment="content">
+		<div class="container">
+
+			<h1 class="jumbotron"> Panier</h1>
+			
+    <div class="alert alert-info" th:if="${outOfStockMessage}" th:utext="${outOfStockMessage}"></div>
+
+    <div class="panel-default well" th:each="product : ${products.entrySet()}">
+        <div class="panel-heading">
+            <h1><a th:text="${product.getKey().designation}" th:href="@{'/product/' + ${product.getKey().idProduit}}">Title</a></h1>
+            <h3 th:text="${product.getKey().description}">Description</h3>
+        </div>
+        <div class="row panel-body">
+            <div th:inline="text" class="col-md-2">Price: [[${product.getKey().prix}]] $</div>
+            <div th:inline="text" class="col-md-9">Quantity: [[${product.getValue()}]]</div>
+            <!-- <a th:href="@{'/shoppingCart/removeProduct/{idProduit}'(idProduit=${product.getKey().idProduit})}" class="col-md-1">
+                <button type="button" class="btn btn-primary" th:text="Remove">Remove</button> </a> --> 
+              <!--  <a  type="button" class="btn btn-danger" th:href="@{/shoppingCart/removeProduct/{idProduit}(idProduit=${product.getKey().idProduit})}">supprimer</a>
+                
+          <!-- <a class="btn btn-primary" th:href="@{/shoppingCart/removeProduct/{idProduit}(idProduit=${product.getKey().idProduit})}">supprimer</a>
+            -->
+        </div>
+        <br></br>
+    </div>  
+
+    <div class="row panel-body">
+        <!--  <h2 class="col-md-11" th:inline="text">Total: [[${total}]]</h2>-->
+        
+       
+       
+        
+         <form action="#" th:action="@{'/shoppingCart/checkout'}" 
+            method="post" >
+            
+              <button type="submit"class="btn btn-danger">Commander</button>
+            
+            </form>
+    </div>
+
+		</div>
+	</div>
+
+</body>
+</html>
